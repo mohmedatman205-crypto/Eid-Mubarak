@@ -4,32 +4,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // إزالة شاشة التحميل
     setTimeout(() => {
         const loader = document.getElementById('loader');
-        if (loader) {
+        if(loader) {
             loader.style.opacity = '0';
             setTimeout(() => loader.style.display = 'none', 500);
         }
     }, 1000);
-
+    
     // تعيين السنة الحالية في الفوتر
     const yearSpan = document.getElementById('currentYear');
-    if (yearSpan) yearSpan.innerText = new Date().getFullYear();
-
+    if(yearSpan) yearSpan.innerText = new Date().getFullYear();
+    
     // تهيئة البطاقة بالاسم الافتراضي عند الفتح لأول مرة
-    if (typeof generateCard === 'function') generateCard();
+    if(typeof generateCard === 'function') generateCard();
 });
 
 // 1. الوضع الليلي / النهاري
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
 
-if (localStorage.getItem('theme') === 'dark') {
+if(localStorage.getItem('theme') === 'dark') {
     body.setAttribute('data-theme', 'dark');
-    if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    if(themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
 }
 
-if (themeToggle) {
+if(themeToggle) {
     themeToggle.addEventListener('click', () => {
-        if (body.getAttribute('data-theme') === 'dark') {
+        if(body.getAttribute('data-theme') === 'dark') {
             body.removeAttribute('data-theme');
             localStorage.setItem('theme', 'light');
             themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
@@ -38,18 +38,18 @@ if (themeToggle) {
             localStorage.setItem('theme', 'dark');
             themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
         }
-        if (typeof generateCard === 'function') generateCard();
+        if(typeof generateCard === 'function') generateCard();
     });
 }
 
-// 2. تشغيل / إيقاف الموسيقى
+// 2. تشغيل / إيقاف التكبيرات
 const musicToggle = document.getElementById('musicToggle');
 const bgMusic = document.getElementById('bgMusic');
 let isPlaying = false;
 
-if (musicToggle && bgMusic) {
+if(musicToggle && bgMusic) {
     musicToggle.addEventListener('click', () => {
-        if (isPlaying) {
+        if(isPlaying) {
             bgMusic.pause();
             musicToggle.innerHTML = '<i class="fas fa-music"></i>';
         } else {
@@ -69,7 +69,7 @@ const peopleToGreet = [
 ];
 
 const greetingsContainer = document.getElementById('greetingsContainer');
-if (greetingsContainer) {
+if(greetingsContainer) {
     peopleToGreet.forEach(person => {
         greetingsContainer.innerHTML += `
             <div class="glass-card greeting-card">
@@ -84,7 +84,7 @@ if (greetingsContainer) {
 // 4. قوالب البطاقات وإعداد Canvas
 const canvas = document.getElementById('eidCanvas');
 let ctx = null;
-if (canvas) ctx = canvas.getContext('2d');
+if(canvas) ctx = canvas.getContext('2d');
 
 let uploadedImgSrc = null;
 
@@ -92,25 +92,25 @@ const templates = {
     '1': { bg: '#0F4C3A', border: '#D4AF37', accent: '#D4AF37', text: '#ffffff' }, // الأخضر الملكي
     '2': { bg: '#0B2046', border: '#C0C0C0', accent: '#C0C0C0', text: '#ffffff' }, // الأزرق الفضي
     '3': { bg: '#4A0E1B', border: '#D4AF37', accent: '#D4AF37', text: '#ffffff' }, // العنابي الذهبي
-    '4': { bg: '#1A1A1A', border: '#D4AF37', accent: '#D4AF37', text: '#ffffff' } // الأسود الراقي
+    '4': { bg: '#1A1A1A', border: '#D4AF37', accent: '#D4AF37', text: '#ffffff' }  // الأسود الراقي
 };
 
 // تحميل الصورة الشخصية
 const userImageInput = document.getElementById('userImage');
-if (userImageInput) {
+if(userImageInput) {
     userImageInput.addEventListener('change', function(e) {
         const reader = new FileReader();
         reader.onload = function(event) {
             uploadedImgSrc = event.target.result;
-            if (typeof generateCard === 'function') generateCard();
+            if(typeof generateCard === 'function') generateCard();
         }
-        if (e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
+        if(e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
     });
 }
 
 // وظيفة رسم الخلفية الأساسية والنصوص
 function drawDefaultCanvas(senderName, templateId, customMsg) {
-    if (!ctx || !canvas) return;
+    if(!ctx || !canvas) return;
     const t = templates[templateId] || templates['1'];
 
     // لون الخلفية بناءً على القالب
@@ -123,7 +123,7 @@ function drawDefaultCanvas(senderName, templateId, customMsg) {
     ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
     ctx.lineWidth = 5;
     ctx.strokeRect(60, 60, canvas.width - 120, canvas.height - 120);
-
+    
     // زخارف بسيطة في الزوايا
     ctx.fillStyle = t.accent;
     ctx.font = "50px 'Font Awesome 6 Free'";
@@ -135,15 +135,15 @@ function drawDefaultCanvas(senderName, templateId, customMsg) {
     // النصوص الأساسية
     ctx.textAlign = "center";
     ctx.direction = "rtl";
-
+    
     ctx.fillStyle = t.accent;
     ctx.font = "bold 110px 'Cairo'";
     ctx.fillText("عيد أضحى مبارك", canvas.width / 2, 250);
-
+    
     ctx.fillStyle = t.text;
     ctx.font = "46px 'Cairo'";
     ctx.fillText("أعاده الله عليكم باليمن والبركات", canvas.width / 2, 350);
-
+    
     // منطقة توقيع كاتب البطاقة
     ctx.font = "38px 'Cairo'";
     ctx.fillStyle = t.accent;
@@ -151,9 +151,9 @@ function drawDefaultCanvas(senderName, templateId, customMsg) {
     ctx.fillStyle = t.text;
     ctx.font = "bold 52px 'Cairo'";
     ctx.fillText(senderName, canvas.width / 2, canvas.height - 90);
-
+    
     // إضافة التهنئة الخاصة إن وجدت
-    if (customMsg && customMsg.trim() !== "") {
+    if(customMsg && customMsg.trim() !== "") {
         ctx.fillStyle = t.accent;
         ctx.font = "48px 'Cairo'";
         ctx.fillText(customMsg, canvas.width / 2, canvas.height - 250);
@@ -162,13 +162,13 @@ function drawDefaultCanvas(senderName, templateId, customMsg) {
 
 // دالة رسم الصورة أو الأيقونة الافتراضية
 function drawImageOrIcon(templateId) {
-    if (!ctx || !canvas) return;
+    if(!ctx || !canvas) return;
     const t = templates[templateId] || templates['1'];
     const centerX = canvas.width / 2;
     const centerY = 580;
     const radius = 170;
 
-    if (uploadedImgSrc) {
+    if(uploadedImgSrc) {
         const img = new Image();
         img.onload = function() {
             ctx.save();
@@ -180,14 +180,14 @@ function drawImageOrIcon(templateId) {
             const aspectRatio = img.width / img.height;
             let drawWidth = radius * 2;
             let drawHeight = radius * 2;
-
-            if (aspectRatio > 1) {
+            
+            if(aspectRatio > 1) {
                 drawWidth = drawHeight * aspectRatio;
             } else {
                 drawHeight = drawWidth / aspectRatio;
             }
-
-            ctx.drawImage(img, centerX - drawWidth / 2, centerY - drawHeight / 2, drawWidth, drawHeight);
+            
+            ctx.drawImage(img, centerX - drawWidth/2, centerY - drawHeight/2, drawWidth, drawHeight);
             ctx.restore();
 
             ctx.beginPath();
@@ -203,11 +203,11 @@ function drawImageOrIcon(templateId) {
         ctx.beginPath();
         ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
         ctx.fill();
-
+        
         ctx.fillStyle = t.accent;
         ctx.font = "140px 'Font Awesome 6 Free'";
         ctx.fillText('\uf678', centerX - 70, centerY + 50);
-
+        
         ctx.beginPath();
         ctx.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
         ctx.lineWidth = 8;
@@ -218,24 +218,23 @@ function drawImageOrIcon(templateId) {
 
 // دالة أساسية لإنشاء البطاقة مع تأثير الكونفيتي
 function generateCard() {
-    if (!ctx || !canvas) return;
-
+    if(!ctx || !canvas) return;
+    
     const nameInput = document.getElementById('userName');
     const msgInput = document.getElementById('userMsg');
     const templateSelect = document.getElementById('cardTemplate');
-
+    
     const name = (nameInput && nameInput.value) ? nameInput.value : 'محمد عبد المنعم محمد مصطفى عتمان';
     const customMsg = (msgInput && msgInput.value) ? msgInput.value : 'كل عام وأنتم بخير';
     const templateId = (templateSelect && templateSelect.value) ? templateSelect.value : '1';
-
+    
     // رسم الخلفية والنصوص
     drawDefaultCanvas(name, templateId, customMsg);
     // رسم الصورة أو الأيقونة
     drawImageOrIcon(templateId);
-
-    // إطلاق الكونفيتي بشكل خفيف عند كل توليد للبطاقة (مرة واحدة كل 300ms على الأقل لمنع التكدس)
-    if (typeof confetti === 'function') {
-        // تأخير بسيط للتأكد من الرسم قبل الكونفيتي
+    
+    // إطلاق الكونفيتي بشكل خفيف عند كل توليد للبطاقة
+    if(typeof confetti === 'function') {
         setTimeout(() => {
             fireConfettiLight();
         }, 50);
@@ -244,11 +243,10 @@ function generateCard() {
 
 // كونفيتي خفيف وجميل
 let confettiTimeout = null;
-
 function fireConfettiLight() {
-    if (confettiTimeout) return;
+    if(confettiTimeout) return;
     confettiTimeout = setTimeout(() => {
-        if (typeof confetti === 'function') {
+        if(typeof confetti === 'function') {
             confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, startVelocity: 15, colors: ['#D4AF37', '#0F4C3A', '#ffffff'] });
             confetti({ particleCount: 80, spread: 100, origin: { y: 0.7, x: 0.3 }, startVelocity: 20 });
             confetti({ particleCount: 80, spread: 100, origin: { y: 0.7, x: 0.7 }, startVelocity: 20 });
@@ -259,22 +257,22 @@ function fireConfettiLight() {
 
 // دالة تحميل البطاقة
 function downloadCard() {
-    if (!canvas) return;
+    if(!canvas) return;
     try {
         const link = document.createElement('a');
         link.download = 'بطاقة_عيد_الأضحى.png';
         link.href = canvas.toDataURL("image/png");
         link.click();
-    } catch (e) {
+    } catch(e) {
         alert("حدث خطأ أثناء تحميل البطاقة");
     }
 }
 
 // دالة مشاركة البطاقة
 async function shareCard() {
-    if (!canvas) return;
-    canvas.toBlob(async(blob) => {
-        if (!blob) return;
+    if(!canvas) return;
+    canvas.toBlob(async (blob) => {
+        if(!blob) return;
         const file = new File([blob], 'eid-card.png', { type: 'image/png' });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
             try {
@@ -297,37 +295,37 @@ async function shareCard() {
 document.addEventListener('DOMContentLoaded', function() {
     // ربط أزرار إنشاء البطاقة وتحميلها ومشاركتها
     const generateBtn = document.getElementById('generateCardBtn');
-    if (generateBtn) {
+    if(generateBtn) {
         generateBtn.addEventListener('click', generateCard);
     }
-
+    
     const downloadBtn = document.getElementById('downloadBtn');
-    if (downloadBtn) {
+    if(downloadBtn) {
         downloadBtn.addEventListener('click', downloadCard);
     }
-
+    
     const shareBtn = document.getElementById('shareBtn');
-    if (shareBtn) {
+    if(shareBtn) {
         shareBtn.addEventListener('click', shareCard);
     }
-
-    // إضافة مستمعين للحقول لتحديث البطاقة بشكل تلقائي (اختياري لتحسين التجربة)
+    
+    // إضافة مستمعين للحقول لتحديث البطاقة بشكل تلقائي
     const userNameField = document.getElementById('userName');
     const userMsgField = document.getElementById('userMsg');
     const templateField = document.getElementById('cardTemplate');
-
-    if (userNameField) userNameField.addEventListener('input', generateCard);
-    if (userMsgField) userMsgField.addEventListener('input', generateCard);
-    if (templateField) templateField.addEventListener('change', generateCard);
-
+    
+    if(userNameField) userNameField.addEventListener('input', generateCard);
+    if(userMsgField) userMsgField.addEventListener('input', generateCard);
+    if(templateField) templateField.addEventListener('change', generateCard);
+    
     // توليد البطاقة لأول مرة بعد ربط الأحداث
-    if (typeof generateCard === 'function') generateCard();
-
+    if(typeof generateCard === 'function') generateCard();
+    
     // إضافة تأثيرات إضافية: عند النقر على أي بطاقة في قسم الأشخاص يتم عمل كونفيتي صغير تحية
     const greetingCards = document.querySelectorAll('.greeting-card');
     greetingCards.forEach(card => {
         card.addEventListener('click', () => {
-            if (typeof confetti === 'function') {
+            if(typeof confetti === 'function') {
                 confetti({ particleCount: 60, spread: 55, origin: { y: 0.8 }, startVelocity: 12 });
             }
         });
