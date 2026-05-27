@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,11 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <audio id="bgMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <!-- تكبيرات عيد الأضحى المبارك -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://archive.org/download/takbeer-eid-mp3/takbeer-eid.mp3" type="audio/mpeg">
     </audio>
 
     <div id="loader">
@@ -24,7 +23,7 @@
 
     <div class="floating-controls">
         <button class="icon-btn" id="themeToggle" title="تغيير المظهر"><i class="fas fa-moon"></i></button>
-        <button class="icon-btn" id="musicToggle" title="تشغيل/إيقاف الصوت"><i class="fas fa-music"></i></button>
+        <button class="icon-btn" id="musicToggle" title="تشغيل/إيقاف التكبيرات"><i class="fas fa-music"></i></button>
     </div>
 
     <div class="lantern" style="font-size: 3rem; color: var(--secondary-color);"><i class="fa-solid fa-mosque"></i></div>
@@ -33,7 +32,7 @@
     <header id="home">
         <h1>عيد أضحى مبارك</h1>
         <p class="subtitle">يهنئكم <strong>محمد عبد المنعم محمد مصطفى عتمان</strong> بمناسبة عيد الأضحى المبارك، أعاده الله عليكم بالخير واليمن والبركات.</p>
-
+        
         <a href="#msg" class="btn-primary">ابدأ الآن <i class="fas fa-arrow-down"></i></a>
     </header>
 
@@ -41,7 +40,8 @@
         <div class="glass-card">
             <h2 class="section-title">رسالتي إليكم</h2>
             <p class="personal-msg">
-                "السلام عليكم ورحمة الله وبركاته،<br> أهنئكم بحلول عيد الأضحى المبارك وأسأل الله أن يتقبل منا ومنكم صالح الأعمال وأن يديم عليكم الصحة والسعادة.<br><br>
+                "السلام عليكم ورحمة الله وبركاته،<br>
+                أهنئكم بحلول عيد الأضحى المبارك وأسأل الله أن يتقبل منا ومنكم صالح الأعمال وأن يديم عليكم الصحة والسعادة.<br><br>
                 <span style="color: var(--secondary-color);">أخوكم / محمد عبد المنعم محمد مصطفى عتمان</span>"
             </p>
         </div>
@@ -96,9 +96,9 @@
 
     <footer>
         <div class="social-icons">
-            <a href="https://www.facebook.com/share/1DBise39AT/"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.tiktok.com/@mohamedabdelmoneimetman?_r=1&_t=ZS-96C2W248z5d"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="https://www.instagram.com/abo.atman20?igsh=MTA3eW53ejAxaGgycA=="><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
         </div>
         <p>جميع الحقوق محفوظة &copy; <span id="currentYear"></span> محمد عبد المنعم محمد مصطفى عتمان</p>
@@ -107,5 +107,4 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
 </body>
-
 </html>
